@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map user Location</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+        #map {
+            height: 450px;
+            margin-left: 10px;
+            margin-right: 50px;
+            margin-top: 30px;
+            border-width: 10px;
+            border-color: black;
+        }
+
+        #button1 {
+            padding: 10px 10px;
+            font-size: 16px;
+            margin: 10px;
+            margin-left: 50px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+
+        }
+    </style>
+
+</head>
+
+<body style="background-color: rgb(39, 178, 111);">
+    <h1 style="margin-left: 50px;">Map user Location</h1>
+    <button id="button1">Click here to share your live video!!</button>
+    <div id="map"></div>
+    <form class="" action="video.html" method="post" name="form" onsubmit="return validated()">
+        <button onclick="shareViaWhatsApp()">Share via WhatsApp</button>
+
+
+</body>
+<script>
+    function shareViaWhatsApp() {
+        // Define the text and link you want to share
+        var text = "Check out this link!";
+        var url = "file://F:/pune/projectsir/location.html";
+        // var url = "https://example.com";
+
+        // Encode the text and URL
+        var encodedText = encodeURIComponent(text);
+        var encodedUrl = encodeURIComponent(url);
+
+        // Create the WhatsApp share URL
+        var whatsappUrl = "https://wa.me/?text=" + encodedText + "%20" + encodedUrl;
+
+        // Open the WhatsApp share URL
+        window.open(whatsappUrl);
+    }
+    const button1 = document.getElementById("button1");
+    button1.addEventListener("click", function () {
+        // alert("Button 1 clicked!");
+        // Add more functionality as needed
+        window.location.href = "video.html"
+
+    });
+    var map = L.map('map');
+    map.setView([34.047, 100.619], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+
+    navigator.geolocation.watchPosition(success, error);
+
+    let marker, circle, zoomed;
+
+
+    function success(pos) {
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        if (!zoomed) {
+            map.fitBounds(circle.getBounds());
+        }
+
+        map.setView([lat, lng]);
+
+    }
+    function error(err) {
+
+        if (err.code === 1) {
+            alert("Please allow geolocation access");
+        } else {
+            alert("Connot get current location")
+        }
+
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Structure Example - By SharathchandarK</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <h2> OTP Verfication</h2>
+        <p>
+            please type verification code sent <mat-toolbar>
+                <span id="mobile"> (000) 000-0000</span>
+            </mat-toolbar>
+        </p>
+        <p>OTP expire in <span id="expire">30</span></p>
+        <div class="row">
+            <input type="number" />
+            <input type="number"  disabled/>
+            <input type="number"  disabled/>
+            <input type="number"  disabled/>
+        </div>
+        <button type="button"> <a href="dash2.html">Verify OTP</a></button>
+        <p> Didn't receive code?
+            <a href="javascrip:void(0)" id="request" onclick="generateOTP()">Request Again</a>
+        </p>
+        
+    </div>
+  </body>
+</html>

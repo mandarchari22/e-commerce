@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Share</title>
+</head>
+<body>
+  <button onclick="shareViaWhatsApp()">Share via WhatsApp</button>
+
+  <script>
+    function shareViaWhatsApp() {
+      // Define the text and link you want to share
+      var text = "Check out this link!";
+      var url = "https://example.com";
+
+      // Encode the text and URL
+      var encodedText = encodeURIComponent(text);
+      var encodedUrl = encodeURIComponent(url);
+
+      // Create the WhatsApp share URL
+      var whatsappUrl = "https://wa.me/?text=" + encodedText + "%20" + encodedUrl;
+
+      // Open the WhatsApp share URL
+      window.open(whatsappUrl);
+    }
+  </script>
+</body>
+</html>
